@@ -15,10 +15,8 @@ const getFilms = async (user,time) => {
     executablePath: 
       process.env.NODE_ENV === "production" 
         ? process.env.EXECUTABLE_PATH
-        : puppeteer.executablePath() 
-    // headless: "new",
-    // headless: false,
-    // defaultViewport: null,
+        : puppeteer.executablePath(), 
+    headless: "new",
   });
 
   const page = await browser.newPage();

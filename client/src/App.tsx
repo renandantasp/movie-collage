@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-
-
-import './App.css'
 
 const size_options = [
   {value:"2",label:"2x2"},
@@ -19,21 +16,11 @@ const time_options = [
 ]
 
 function App() {
-  const [posts, setPosts] = useState([])
   const [params, setParams] = useState({user:'',size:'',time:''})
+  const [image, setImage] = useState('')
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-       .then((res) => console.log(res))
-       .then((data) => {
-          console.log(data);
-          setPosts(data);
-       })
-       .catch((err) => {
-          console.log(err.message);
-       });
-  }, []);
-  console.log(posts)
+
+  console.log(image)
 
   const handleUserChange = (event) => {
     setParams((prevData) => ({...prevData, user:event.target.value}))
@@ -48,9 +35,10 @@ function App() {
   }
 
   const handleSave = async () => {
-    console.log(params)
-    // const res = await fetch(`http:localhost:4000/collage?user=${params.user}&size=${params.size}&time=${params.time}`)
-    // console.log(res)
+    const res = await fetch(`http://localhost:4000/collage?user=${params.user}&size=${params.size}&time=${params.time}`)
+    const txt = await res.text()
+    setImage(txt.slice(10,-4))
+    window.open(`${image}`, '_blank', 'noopener')
   }
 
   return (
@@ -91,7 +79,7 @@ function App() {
             Submit
         </button>
       </div>
-
+      <img src={image} alt="collage" />
     </div>
   )
 }
