@@ -45,15 +45,15 @@ const getFilms = async (user,time) => {
     return Promise.all(arr)
 
   });
-  await browser.close();
   
-
   const collage_films = films.filter( film => film.date > min_date).map(async (film) => {
     const inital_poster_path = "https://image.tmdb.org/t/p/original"
     const res = await fetch(`${url}${film.film_name}`)
     const poster_path = await res.json()
     return {...film, poster_path:`${inital_poster_path}${poster_path.results[0].poster_path}`}
   })
+
+  await browser.close();
   return Promise.all(collage_films)
 
 };
