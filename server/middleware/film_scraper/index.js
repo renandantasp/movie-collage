@@ -57,7 +57,4 @@ const getFilms = async (user,time) => {
 
 };
 
-const abc = await getFilms('crinjao',3)
-console.log(abc)
-
 export default getFilms 
