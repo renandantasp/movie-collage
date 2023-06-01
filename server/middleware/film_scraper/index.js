@@ -53,9 +53,11 @@ const getFilms = async (user,time) => {
     return {...film, poster_path:`${inital_poster_path}${poster_path.results[0].poster_path}`}
   })
 
-  await browser.close();
   return Promise.all(collage_films)
 
 };
+
+const abc = await getFilms('crinjao',3)
+console.log(abc)
 
 export default getFilms 
